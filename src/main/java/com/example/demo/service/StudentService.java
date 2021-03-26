@@ -24,4 +24,37 @@ public class StudentService {
      public Optional<StudentModel>  getStudentById(String id){
          return studentRepo.findById(id);
      }
+
+    public List<StudentModel>  getStudentByName(String name){
+        return studentRepo.findByNames(name);
+    }
+
+    public boolean deleteStudentById(String id){
+         Optional<StudentModel> isStudentExisit = studentRepo.findById(id);
+         if (isStudentExisit.isPresent()){
+             studentRepo.deleteById(id);
+             return true;
+         } else {
+             return false;
+         }
+    }
+
+    public Boolean updateStudentById(String id, StudentModel studentModel){
+         Optional<StudentModel>isStudentExist = studentRepo.findById(id);
+         if (isStudentExist.isPresent()){
+         StudentModel studentData = isStudentExist.get();
+
+         studentData.setNames(studentModel.getNames());
+         studentData.setAge(studentModel.getAge());
+         studentData.setGender(studentModel.getGender());
+         studentData.setPhone(studentModel.getPhone());
+             studentRepo.save(studentData);
+         return true;
+         }
+         else {
+            return false;
+         }
+    }
+
+
 }

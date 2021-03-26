@@ -38,6 +38,40 @@ public class StudentController {
     }
 
 
+    @GetMapping("students/name/{name}")
+    public ResponseEntity  < List<StudentModel>> getStudentByName(@PathVariable String name){
+        return new ResponseEntity<>(studentService.getStudentByName(name),HttpStatus.OK) ;
+    }
+
+    @DeleteMapping("students/{id}")
+
+    public ResponseEntity<String> deleteStudentById(@PathVariable String id){
+        if (studentService.deleteStudentById(id)){
+           return new ResponseEntity<String>("Delete Successfully ",HttpStatus.OK);
+        } else {
+           return new ResponseEntity<String>("Student does not exist, delete failed",HttpStatus.EXPECTATION_FAILED) ;
+        }
+
+
+
+    }
+
+
+    @PutMapping("students/{id}")
+
+    public ResponseEntity<String>updateStudentById(@PathVariable String  id, @RequestBody  StudentModel studentModel){
+        if (studentService.updateStudentById(id, studentModel)){
+            return new ResponseEntity<String>("updated Successfully ",HttpStatus.OK);
+        } else {
+            return new ResponseEntity<String>("cannot be updated",HttpStatus.EXPECTATION_FAILED) ;
+        }
+
+
+
+    }
+
+
+
 
 
 }
