@@ -39,7 +39,7 @@ public class StudentController {
 
 
     @GetMapping("students/name/{name}")
-    public ResponseEntity  < List<StudentModel>> getStudentByName(@PathVariable String name){
+    public ResponseEntity<List<StudentModel>>getStudentByName(@PathVariable String name){
         return new ResponseEntity<>(studentService.getStudentByName(name),HttpStatus.OK) ;
     }
 
@@ -56,7 +56,6 @@ public class StudentController {
 
     }
 
-
     @PutMapping("students/{id}")
 
     public ResponseEntity<String>updateStudentById(@PathVariable String  id, @RequestBody  StudentModel studentModel){
@@ -65,8 +64,6 @@ public class StudentController {
         } else {
             return new ResponseEntity<String>("cannot be updated",HttpStatus.EXPECTATION_FAILED) ;
         }
-
-
 
     }
 

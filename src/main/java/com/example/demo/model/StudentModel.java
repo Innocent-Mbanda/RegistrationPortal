@@ -11,11 +11,14 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class StudentModel {
     @Id
     private String studentId;
-
     private String names;
     private String gender;
     private String phone;
     private int age;
+    private String email;
+    private String []Course;
+    private String [] grades;
+
 
     public StudentModel(){
 
