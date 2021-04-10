@@ -31,15 +31,26 @@ public class CoursesServices {
         return coursesRepository.findByNames(name);
     }
 
-    public boolean deleteCourseById(String id){
-        Optional<CoursesModel>isCourseAvailable =coursesRepository.findById(id);
-            if(isCourseAvailable.isPresent()){
-                coursesRepository.deleteById(id);
-                return true;
-            } else {
-                return false;
-            }
 
+   public boolean deleteCourseById (String id){
+        Optional<CoursesModel >isCourseAvailable = coursesRepository.findById(id);
+        if (isCourseAvailable.isPresent()){
+           coursesRepository.deleteById(id);
+           return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean updateCourseById(String id, CoursesModel coursesModel){
+        Optional<CoursesModel>IsCourseAvailable =coursesRepository.findById(id);
+        if (IsCourseAvailable.isPresent()){
+         CoursesModel courseData = IsCourseAvailable.get();
+         courseData.setCourseName(coursesModel.getCourseName());
+         courseData.setCoursePeriod(coursesModel.getCoursePeriod());
+
+        }
+        return false;
     }
 }
 

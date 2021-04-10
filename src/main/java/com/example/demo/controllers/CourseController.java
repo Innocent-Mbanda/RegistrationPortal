@@ -17,40 +17,45 @@ public class CourseController {
     @Autowired
     private CoursesServices coursesServices;
 
-    @PostMapping("course")
+    @PostMapping("/course")
     public ResponseEntity<CoursesModel> createCourses(@RequestBody CoursesModel courseInfo){
         return new ResponseEntity<>(coursesServices.createCourses(courseInfo), HttpStatus.CREATED);
     }
 
-    @GetMapping("courses")
+    @GetMapping("/courses")
 
     public ResponseEntity<List<CoursesModel>>getAllCourses(){
         return new ResponseEntity<>(coursesServices.createCourses(),HttpStatus.OK);
     }
 
-    @GetMapping("courses/{id}")
+    @GetMapping("/courses/{id}")
     public ResponseEntity<Optional<CoursesModel>>getCoursesById(@PathVariable String id){
         return new ResponseEntity<>(coursesServices.getCourseById(id),HttpStatus.OK);
     }
 
-    @GetMapping("courses/name")
+    @GetMapping("/courses/name")
 
     public ResponseEntity <List<CoursesModel>>getCoursesByName(String name){
         return new ResponseEntity<>(coursesServices.getCoursesByName(name),HttpStatus.CREATED);
     }
 
-@DeleteMapping("courses/{id}")
+@DeleteMapping("/courses/{id}")
 
     public ResponseEntity<String>deleteCourseById(@PathVariable String id){
        if (coursesServices.deleteCourseById(id)){
            return new ResponseEntity<String>("Course deleted",HttpStatus.OK);
        } else {
-           return new ResponseEntity<String>("Course does not exisit, delete failured",HttpStatus.OK);
+           return new ResponseEntity<String>("Course does not exist, delete failure",HttpStatus.OK);
        }
 }
+ @PutMapping("/courses{id}")
+ public ResponseEntity<String> updateCourseById(@PathVariable String id, CoursesModel coursesModel){
+        if (coursesServices.updateCourseById(id,coursesModel)){
+            return new ResponseEntity<String>("You have updated the courses",HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<String>("Updating falured",HttpStatus.OK);
 
-
-
-
+        }
+ }
 
 }

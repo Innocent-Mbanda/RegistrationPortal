@@ -19,24 +19,20 @@ public class StudentController {
 //    @Autowired
 //    private StudentModel studentModel;
 
-
     @PostMapping("/register")
     public ResponseEntity< StudentModel> createStudent(@RequestBody StudentModel studentData){
         return new ResponseEntity<>(studentService.createStudent(studentData), HttpStatus.CREATED);
     }
 
     @GetMapping("/students")
-
    public ResponseEntity <List<StudentModel>>getAllStudents(){
        return new ResponseEntity<>(studentService.getStudents(),HttpStatus.OK) ;
     }
-
 
     @GetMapping("students/{id}")
     public ResponseEntity<Optional<StudentModel>> getStudentById(@PathVariable String id){
         return new ResponseEntity<>(studentService.getStudentById(id),HttpStatus.OK) ;
     }
-
 
     @GetMapping("students/name/{name}")
     public ResponseEntity<List<StudentModel>>getStudentByName(@PathVariable String name){
@@ -51,11 +47,7 @@ public class StudentController {
         } else {
            return new ResponseEntity<String>("Student does not exist, delete failed",HttpStatus.EXPECTATION_FAILED) ;
         }
-
-
-
     }
-
     @PutMapping("students/{id}")
 
     public ResponseEntity<String>updateStudentById(@PathVariable String  id, @RequestBody  StudentModel studentModel){
@@ -67,6 +59,14 @@ public class StudentController {
 
     }
 
+    @PostMapping("/studentEnroll/{studentId}/{courseId}")
+
+    public ResponseEntity<String>postStudentCourse(@PathVariable String studentId, @PathVariable  String courseId){
+        if (studentService.studentEnrollCourse(studentId,courseId))
+        return new ResponseEntity<String>("Successful",HttpStatus.OK); else {
+            return new ResponseEntity<String>("Not successful",HttpStatus.NOT_MODIFIED);
+        }
+    }
 
 
 

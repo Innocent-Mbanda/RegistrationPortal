@@ -15,7 +15,7 @@ public class CoursesModel {
     private String courseName;
     private String facilitatorName;
     private String coursePeriod;
-    private boolean isActive;
+    private Boolean isActive;
 
 
     public CoursesModel (){
@@ -54,11 +54,11 @@ public class CoursesModel {
         this.coursePeriod = coursePeriod;
     }
 
-    public boolean isActive() {
+    public Boolean getActive() {
         return isActive;
     }
 
-    public void setActive(boolean active) {
+    public void setActive(Boolean active) {
         isActive = active;
     }
 }

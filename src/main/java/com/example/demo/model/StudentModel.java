@@ -5,6 +5,8 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @Document(collection = "studentsInfo")
@@ -16,12 +18,20 @@ public class StudentModel {
     private String phone;
     private int age;
     private String email;
-    private String []Course;
-    private String [] grades;
+    private List<Object>courses;
+//    private String [] grades;
 
 
     public StudentModel(){
 
+    }
+
+    public List<Object> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(List<Object> courses) {
+        this.courses = courses;
     }
 
     public String getStudentId() {
