@@ -68,6 +68,11 @@ public class StudentController {
         }
     }
 
+    @GetMapping("schools")
+    public ResponseEntity<Object>getSchools(){
+        return new ResponseEntity<>(studentService.getAllSchools(),HttpStatus.OK);
+    }
+
 
 
 

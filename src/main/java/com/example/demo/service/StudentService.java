@@ -5,21 +5,30 @@ import com.example.demo.model.StudentModel;
 import com.example.demo.repository.CoursesRepository;
 import com.example.demo.repository.StudentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.json.JsonParser;
+import org.springframework.boot.json.JsonParserFactory;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
 public class StudentService {
+    @Autowired
+    private RestTemplate restTemplate;
+    private String url ="http://localhost:8080/api/v2/schools/6074ab9d66ae3371528347b1";
 
     @Autowired
     private StudentRepo studentRepo;
     @Autowired
     private CoursesRepository coursesRepository;
-     public StudentModel createStudent(StudentModel studentdata){
-         return studentRepo.save(studentdata);
+
+     public StudentModel createStudent(StudentModel studentData){
+         return studentRepo.save(studentData);
      }
 
      public List<StudentModel> getStudents(){
@@ -35,8 +44,8 @@ public class StudentService {
     }
 
     public Boolean deleteStudentById(String id){
-         Optional<StudentModel> isStudentExisit = studentRepo.findById(id);
-         if (isStudentExisit.isPresent()){
+         Optional<StudentModel> isStudentExist = studentRepo.findById(id);
+         if (isStudentExist.isPresent()){
              studentRepo.deleteById(id);
              return true;
          } else {
@@ -84,6 +93,18 @@ public class StudentService {
 
 
     }
+
+    public Object getAllSchools(){
+     String response = restTemplate.exchange(url, HttpMethod.GET,null,String.class).getBody();
+        JsonParser springJson = JsonParserFactory.getJsonParser();
+
+        Map<String,Object> map =springJson.parseMap(response);
+        return map;
+    }
+
+
+
+
 
 
 

@@ -28,7 +28,7 @@ public class CoursesServices {
     }
 
     public List<CoursesModel> getCoursesByName(String name){
-        return coursesRepository.findByNames(name);
+        return coursesRepository.findByCourseName(name);
     }
 
 
